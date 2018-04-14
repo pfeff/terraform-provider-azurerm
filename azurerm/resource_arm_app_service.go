@@ -70,6 +70,12 @@ func resourceArmAppService() *schema.Resource {
 							DiffSuppressFunc: ignoreCaseDiffSuppressFunc,
 						},
 
+						"http2_enabled": {
+							Type:     schema.TypeBool,
+							Optional: true,
+							Default:  false,
+						},
+
 						"java_version": {
 							Type:     schema.TypeString,
 							Optional: true,
@@ -597,6 +603,10 @@ func expandAppServiceSiteConfig(d *schema.ResourceData) web.SiteConfig {
 		siteConfig.JavaContainerVersion = utils.String(v.(string))
 	}
 
+	if v, ok := config["http2_enabled"]; ok {
+		siteConfig.HTTP20Enabled = utils.Bool(v.(bool))
+	}
+
 	if v, ok := config["local_mysql_enabled"]; ok {
 		siteConfig.LocalMySQLEnabled = utils.Bool(v.(bool))
 	}
@@ -676,6 +686,10 @@ func flattenAppServiceSiteConfig(input *web.SiteConfig) []interface{} {
 
 	if input.LocalMySQLEnabled != nil {
 		result["local_mysql_enabled"] = *input.LocalMySQLEnabled
+	}
+
+	if input.HTTP20Enabled != nil {
+		result["http2_enabled"] = *input.HTTP20Enabled
 	}
 
 	result["managed_pipeline_mode"] = string(input.ManagedPipelineMode)
