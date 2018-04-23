@@ -94,6 +94,11 @@ func resourceArmAppService() *schema.Resource {
 							Optional: true,
 						},
 
+						"linux_fx_version": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+
 						"local_mysql_enabled": {
 							Type:     schema.TypeBool,
 							Optional: true,
@@ -595,6 +600,10 @@ func expandAppServiceSiteConfig(d *schema.ResourceData) web.SiteConfig {
 
 	if v, ok := config["java_container_version"]; ok {
 		siteConfig.JavaContainerVersion = utils.String(v.(string))
+	}
+
+	if v, ok := config["linux_fx_version"]; ok {
+		siteConfig.LinuxFxVersion = utils.String(v.(string))
 	}
 
 	if v, ok := config["local_mysql_enabled"]; ok {
