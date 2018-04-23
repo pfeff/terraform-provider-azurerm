@@ -151,6 +151,8 @@ The following arguments are supported:
 * `java_container` - (Optional) The Java Container to use. If specified `java_version` and `java_container_version` must also be specified. Possible values are `JETTY` and `TOMCAT`.
 * `java_container_version` - (Optional) The version of the Java Container to use. If specified `java_version` and `java_container` must also be specified.
 
+* `linux_fx_version` - (Optional) The Linux container to use.  Typically of the form `"DOCKER|<container>:<tag>"`.
+
 * `local_mysql_enabled` - (Optional) Is "MySQL In App" Enabled? This runs a local MySQL instance with your app and shares resources from the App Service plan.
 
 ~> **NOTE:** MySQL In App is not intended for production environments and will not scale beyond a single instance. Instead you may wish [to use Azure Database for MySQL](/docs/providers/azurerm/r/mysql_database.html).
